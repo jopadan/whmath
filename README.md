@@ -46,3 +46,9 @@ vec::f32<4> b = { 32.0, 54.0, 43.0, 34.0 };
 col::RGB565 c = { (24 << 0) | (54 << 5) | (32 << 6) };
 
 ```
+
+# Links
+
+- [Levi-Civita symbol](https://en.wikipedia.org/wiki/Levi-Civita_symbol)
+- [Parity Theorem for Permutations](https://maa.org/book/export/html/115646)
+- [Hodge star operator](https://en.wikipedia.org/wiki/Hodge_star_operator)
