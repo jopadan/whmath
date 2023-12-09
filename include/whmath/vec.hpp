@@ -179,10 +179,6 @@ struct vec : wide<T, N>
 	template<typename... A,
 	         typename = std::enable_if_t<(sizeof...(A) <= N) && (sizeof...(A) > 1)>,
 		 typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, size_t> && ...)>>
-	inline constexpr vec<T, N> permute(A&&... a) { return { static_cast<T>( a )... }; }
-	template<typename... A,
-	         typename = std::enable_if_t<(sizeof...(A) <= N) && (sizeof...(A) > 1)>,
-		 typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, size_t> && ...)>>
 	ssize_t levi_civita(A&&... a) { std::next_permutation(a...); }
 	template<typename... A,
 	         typename = std::enable_if_t<sizeof...(A) < N>,

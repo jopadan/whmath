@@ -49,6 +49,7 @@ col::RGB565 c = { (24 << 0) | (54 << 5) | (32 << 6) };
 
 # Links
 
-- [Levi-Civita symbol](https://en.wikipedia.org/wiki/Levi-Civita_symbol)
+- [Permutation](https://en.wikipedia.org/wiki/Permutation)
 - [Parity Theorem for Permutations](https://maa.org/book/export/html/115646)
+- [Levi-Civita symbol](https://en.wikipedia.org/wiki/Levi-Civita_symbol)
 - [Hodge star operator](https://en.wikipedia.org/wiki/Hodge_star_operator)

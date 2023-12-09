@@ -76,6 +76,40 @@ namespace math
 		#include <whmath/vec.hpp>
 	};
 
+	namespace com
+	{
+		template<typename T, size_t N>
+		struct permutation;
+
+		template<typename T, size_t N>
+		using type = std::conditional_t<(N > 1), permutation<T, N>, T>;
+
+		template<size_t N>
+		using f32 = type<sca::f32, N>;
+		template<size_t N>
+		using f64 = type<sca::f64, N>;
+
+		template<size_t N>
+		using  i8 = type<sca:: i8, N>;
+		template<size_t N>
+		using i16 = type<sca::i16, N>;
+		template<size_t N>
+		using i32 = type<sca::i32, N>;
+		template<size_t N>
+		using i64 = type<sca::i64, N>;
+
+		template<size_t N>
+		using  u8 = type<sca:: u8, N>;
+		template<size_t N>
+		using u16 = type<sca::u16, N>;
+		template<size_t N>
+		using u32 = type<sca::u32, N>;
+		template<size_t N>
+		using u64 = type<sca::u64, N>;
+
+		#include <whmath/per.hpp>
+	};
+
 	namespace mat
 	{
 		template<typename T, size_t N, size_t ROWS = N>
