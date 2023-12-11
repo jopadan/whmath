@@ -176,6 +176,21 @@ struct vec : wide<T, N>
 		return dst;
 	}
 /*
+	constexpr vec<T, N> hodge_dual( A&&... args )
+	{
+		std::array<permutation<T, N>, N> p = { static_cast<vec<T, N>>(args)..., { 0 } };
+		switch(N)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case default:
+				return p.levi_civita() * 
+		}
+	}
+
+
 	template<typename... A,
 	         typename = std::enable_if_t<(sizeof...(A) <= N) && (sizeof...(A) > 1)>,
 		 typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, size_t> && ...)>>
@@ -183,11 +198,6 @@ struct vec : wide<T, N>
 	template<typename... A,
 	         typename = std::enable_if_t<sizeof...(A) < N>,
 	         typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, vec<T, N> && ...)>>
-	constexpr vec<T, N> hodge_dual( A&&... args )
-	{
-		std::array<vec<T, N>, N - 1> v = { static_cast<vec<T, N>>(args)... };
-		if(N == 3) { (*this).rotl v[0].rotl( }
-	}
 */
 	template<typename... A,
 	         typename = std::enable_if_t<sizeof...(A) <= N && (sizeof...(A) > 1)>,

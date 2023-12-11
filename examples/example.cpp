@@ -21,13 +21,12 @@ int main(int argc, char** argv)
 	std::cout << m.transpose() << std::endl;
 	std::cout << "permutations: input[0]" << std::endl;
 	com::permutation<sca::f32, 4> p = m[0];
+	size_t swap_count = 0;
 	do {
-		std::cout << p << std::endl;
+		std::cout << p.parity() << ": " << p.bubble_sort(&swap_count) << " " << swap_count <<  " -> " << p.pancake_sort(&swap_count) << " " << swap_count << std::endl;
 		p = p.next();
 	} while(p != m[0]);
 
-	std::cout << "pancake: " << std::endl;
-	std::cout << p.pancake_sort() << std::endl;
 	exit(EXIT_SUCCESS);
 }
 
