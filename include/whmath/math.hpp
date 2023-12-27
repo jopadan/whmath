@@ -302,7 +302,7 @@ namespace math
 
 		template<typename T, size_t N, size_t C, const vec::u8<C> bits, const vec::u8<C> channels>
 		using type = col<T, N, C, bits, channels>;
-
+/*
 		using RGB888     = type<sca:: u8, 3, 3, {  8,  8,  8 }, { 0, 1, 2 }>;
 		using RGBF32C3   = type<sca::f32, 3, 3, { 32, 32, 32 }, { 0, 1, 2 }>;
 		using RGB565     = type<sca::u16, 1, 3, {  5,  6,  5 }, { 0, 1, 2 }>;
@@ -311,7 +311,7 @@ namespace math
 		using ARGB8888   = type<sca:: u8, 4, 4, {  8,  8,  8,  8 }, { 3, 0, 1, 2 }>;
 		using BGRA8888   = type<sca:: u8, 4, 4, {  8,  8,  8,  8 }, { 2, 1, 0, 3 }>;
 		using RGBAF32C4  = type<sca::f32, 4, 4, { 32, 32, 32, 32 }, { 0, 1, 2, 3 }>;
-
+*/
 		#include <whmath/col.hpp>
 	};
 

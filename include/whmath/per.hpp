@@ -17,7 +17,7 @@ struct permutation : vec::type<T, N>
 	bool parity()
 	{
 		size_t swap_count = 0;
-		sort(BUBBLE_SORT, &swap_count);
+		sort(PANCAKE_SORT, &swap_count);
 		return pow(-1, swap_count) <= 0 ? false : true;
 	}
 
@@ -110,16 +110,6 @@ struct permutation : vec::type<T, N>
 	permutation<T,N> block_sort(size_t* swap_count = nullptr)
 	{
 		permutation<T,N> p(*this);
-		for(size_t i = 0; i < N/2 + 1; ++i)
-		{
-			for(size_t j = N - 1; j > 0; --j)
-				if(p[j - 1] > p[j])
-				{
-					std::swap(p[j - 1], p[j]);
-					if(swap_count != nullptr)
-						(*swap_count)++;
-				}
-		}
 		return p;
 	}
 };
