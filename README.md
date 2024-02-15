@@ -34,16 +34,29 @@ C++ SIMD header-only math library targeting game/engine development
 using namespace math;
 
 /* single float scalar */
-sca::f32 f = 213.0f;
+sca::f32          f = 213.0f;
 
 /* unsigned byte vector of size 4 */
-vec::u8<4>  a = { 43, 52, 32, 53 };
+vec::u8<4>        a = { 43, 52, 32, 53 };
 
 /* single float vector of size 4 */
-vec::f32<4> b = { 32.0, 54.0, 43.0, 34.0 };
+vec::f32<4>       b = { 32.0, 54.0, 43.0, 34.0 };
 
-/* single unsigned short integer split into 3 color components */
-col::RGB565 c = { (24 << 0) | (54 << 5) | (32 << 6) };
+/* unsigned short integer bitfield with 3 color components */
+col::u16<5,6,5>   c = { 24, 12, 12 };
+
+/* unsigned short integer bitfield with 4 color components */
+col::u16<4,4,4,4> d = { 24, 12, 12, 8 };
+
+/* unsigned char integer vector with 4 color components */
+col::u8<4>        e = { 24, 12, 12, 8 };
+
+/* floating point vector with 4 color components */
+col::f32<4>       f = { 24.0f, 12.0f, 12.0f, 8.0f };
+
+/* 3d vector product */
+mat::f32<3, 3> m3 = mat::f32<3,3>::identity();
+m3[2] = vector_product<sca::f32, 3>(m3[0], m3[1]);
 
 ```
 
