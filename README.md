@@ -18,8 +18,16 @@ get clone --recurse-submodules --recursive http://github.com/jopadan/whmath
 
 ```sh
 cd whmath
+
 cmake . --install-prefix=/usr
 make install
+```
+
+### Optimization
+
+Change `CMakeLists.txt` compile flags to fit your needs:
+```sh
+add_compile_options(-march=native -mfpmath=sse+387 -mveclibabi=svml -O3)
 ```
 
 ## Usage
