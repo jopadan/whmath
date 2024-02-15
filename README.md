@@ -8,23 +8,19 @@ C++ SIMD header-only math library targeting game/engine development
 | ----:     | :---                                                               |
 |`math.hpp`   |template prototypes describe intended implementations               |
 
-## Status
+## Sources
 
-| type | sca  | vec  | ten | oct | sed
-| ----:| :--- | :--- | :-- | :-- | :-- 
-| `f32<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `f64<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-|  `i8<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-|  `u8<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `i16<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `u16<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `i32<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `u32<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `i64<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `u64<n>`|<ul><li>- [x] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `fxd<n>`|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
-| `cpx<n>`|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|<ul><li>- [ ] </ul></li>|
+```sh
+get clone --recurse-submodules --recursive http://github.com/jopadan/whmath
+```
 
+## Building
+
+```sh
+cd whmath
+cmake . --install-prefix=/usr
+make install
+```
 
 ## Usage
 
