@@ -12,13 +12,12 @@ C++ SIMD header-only math library targeting game/engine development
 
 ```sh
 get clone --recurse-submodules --recursive http://github.com/jopadan/whmath
+cd whmath
 ```
 
 ## Building
 
 ```sh
-cd whmath
-
 cmake . --install-prefix=/usr
 make install
 ```
