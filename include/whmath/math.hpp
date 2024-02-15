@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <ostream>
 #include <type_traits>
+#include <numeric>
 
 using namespace std::experimental::parallelism_v2;
 
@@ -292,28 +293,111 @@ namespace math
 		#include <whmath/sed.hpp>
 	};
 
-	namespace col
+namespace col
+{
+	template<typename T, size_t N>
+	struct vc3;
+
+	template<typename T, size_t N>
+	struct vc4;
+
+	template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits>
+	struct bf3;
+
+	template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits, const sca::u8 c3_bits>
+	struct bf4;
+
+	template<size_t N>
+	using u8 = std::conditional<N == 3, vc3<sca::u8, N>, vc4<sca::u8, N>>::type;
+
+	template<const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits, const sca::u8 c3_bits = 0>
+	using u16 = std::conditional<c3_bits == 0, bf3<sca::u16, c0_bits, c1_bits, c2_bits>, bf4<sca::u16, c0_bits, c1_bits, c2_bits, c3_bits>>::type;
+
+	template<const sca::u8 c0_bits, const sca::u8 c1_bits,  const sca::u8 c2_bits, const sca::u8 c3_bits>
+	using u32 = std::conditional<c3_bits == 0, bf3<sca::u32, c0_bits, c1_bits, c2_bits>, bf4<sca::u32, c0_bits, c1_bits, c2_bits, c3_bits>>::type;
+
+	template<size_t N>
+	using f32 = std::conditional<N == 3, vc3<sca::f32, N>, vc4<sca::f32, N>>::type;
+
+	template<size_t N>
+	using f64 = std::conditional<N == 3, vc3<sca::f32, N>, vc4<sca::f32, N>>::type;
+
+	template<typename T, size_t N>
+	struct vc3
 	{
-		template<typename T, size_t N>
-		using wide = std::array<T, N>;
-
-		template<typename T, size_t N, size_t C, const vec::u8<C> bits, const vec::u8<C> channels>
-		struct col;
-
-		template<typename T, size_t N, size_t C, const vec::u8<C> bits, const vec::u8<C> channels>
-		using type = col<T, N, C, bits, channels>;
-/*
-		using RGB888     = type<sca:: u8, 3, 3, {  8,  8,  8 }, { 0, 1, 2 }>;
-		using RGBF32C3   = type<sca::f32, 3, 3, { 32, 32, 32 }, { 0, 1, 2 }>;
-		using RGB565     = type<sca::u16, 1, 3, {  5,  6,  5 }, { 0, 1, 2 }>;
-		using RGBA4444   = type<sca::u16, 1, 4, {  4,  4,  4,  4 }, { 0, 1, 2, 3 }>;
-		using RGBA8888   = type<sca:: u8, 4, 4, {  8,  8,  8,  8 }, { 0, 1, 2, 3 }>;
-		using ARGB8888   = type<sca:: u8, 4, 4, {  8,  8,  8,  8 }, { 3, 0, 1, 2 }>;
-		using BGRA8888   = type<sca:: u8, 4, 4, {  8,  8,  8,  8 }, { 2, 1, 0, 3 }>;
-		using RGBAF32C4  = type<sca::f32, 4, 4, { 32, 32, 32, 32 }, { 0, 1, 2, 3 }>;
-*/
-		#include <whmath/col.hpp>
+		T c0;
+		T c1;
+		T c2;
+		void print_u8()
+		{
+			printf("[%hhu %hhu %hhu]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
+		}
+		void print_f32()
+		{
+			printf("[%f %f %f]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
+		}
 	};
 
+	template<typename T, size_t N>
+	struct vc4
+	{
+		T c0;
+		T c1;
+		T c2;
+		T c3;
+		void print_u8()
+		{
+			printf("[%hhu %hhu %hhu %hhu]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
+		}
+		void print_f32()
+		{
+			printf("[%f %f %f %f]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
+		}
+	};
+
+	template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits>
+	struct bf3
+	{
+		T c0 : c0_bits;
+		T c1 : c1_bits;
+		T c2 : c2_bits;
+
+		operator u8<4>()
+		{
+			return u8<4>(
+			((c0 * 255 + (1 << (c0_bits - 1)) - 1) / (1 << c0_bits) - 1),
+			((c1 * 255 + (1 << (c1_bits - 1)) - 1) / (1 << c1_bits) - 1),
+			((c2 * 255 + (1 << (c2_bits - 1)) - 1) / (1 << c2_bits) - 1),
+			0);
+		}
+		void print_u8()
+		{
+			printf("[%hhu %hhu %hhu]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
+		}
+	};
+
+	template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits, const sca::u8 c3_bits>
+	struct bf4
+	{
+		T c0 : c0_bits;
+		T c1 : c1_bits;
+		T c2 : c2_bits;
+		T c3 : c3_bits;
+
+		operator u8<4>()
+		{
+			return u8<4>(
+			((c0 * 255 + (1 << (c0_bits - 1)) - 1) / (1 << c0_bits) - 1),
+			((c1 * 255 + (1 << (c1_bits - 1)) - 1) / (1 << c1_bits) - 1),
+			((c2 * 255 + (1 << (c2_bits - 1)) - 1) / (1 << c2_bits) - 1),
+			((c3 * 255 + (1 << (c3_bits - 1)) - 1) / (1 << c3_bits) - 1));
+		}
+		void print_u8()
+		{
+			printf("[%hhu %hhu %hhu %hhu]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
+		}
+	};
+	#include <whmath/col.hpp>
+};
 };
 

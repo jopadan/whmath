@@ -21,7 +21,6 @@ struct mat : wide<T, COLS, ROWS>
 	{
 		std::copy(rows.begin(), rows.end(), (*this).begin()); 
 	}
-
 	constexpr mat(const mat&) noexcept = default;
 	constexpr mat(mat&&) noexcept = default;
 	constexpr mat() noexcept = default;
@@ -30,6 +29,16 @@ struct mat : wide<T, COLS, ROWS>
 		typename = std::enable_if_t<(sizeof...(A) <= ROWS) && (sizeof...(A) >= 1)>,
 		typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, vec::type<T,COLS>> && ...)>>
 	constexpr explicit mat(A&&... args) noexcept : wide<T, COLS, ROWS>{ static_cast<vec::type<T, COLS>>(args)... } {}
+
+	static constexpr mat<T, ROWS, COLS> identity()
+	{
+		mat<T, ROWS, COLS> dst;
+
+		for(size_t i = 0; i < ROWS; i++)
+			dst[i] = vec::type<T, ROWS>::identity(i);
+
+		return dst;
+	}
 
 	inline constexpr vec::vec<T, COLS> row(size_t n) { return (*this)[n]; }
 	inline constexpr vec::vec<T, ROWS> col(size_t n)

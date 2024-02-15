@@ -1,11 +1,5 @@
 #pragma once
 
-template<typename T, size_t N, size_t C, const vec::u8<C> bits, const vec::u8<C> channels>
-struct col : wide<T, N>
-{
-
-};
-
 /*
 template<typename T, size_t N>
 struct fmt

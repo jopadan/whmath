@@ -199,10 +199,6 @@ struct vec : wide<T, N>
 			dst += static_cast<O>((*this)[i]);
 		return dst;
 	}
-	inline constexpr vec<T, 3> vector_product_3d(vec<T, 3> other)
-	{
-		return ((*this) * other.rotl(1) - other * (*this).rotl(1)).rotl(1);
-	}
 /*
 	friend constexpr vec<T, 4> vector_product_4d(vec<T, 4> a, vec<T, 4> b, vec<T, 4> c)
 	{
@@ -293,14 +289,20 @@ struct vec : wide<T, N>
 	template<typename... A,
 	         typename = std::enable_if_t<sizeof...(A) <= N && (sizeof...(A) > 1)>,
 	         typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, size_t> && ...)>>
-	inline constexpr vec<T, N> identity( A&&... args ) { return { static_cast<T>(args ? 1 : 0)... }; }
-	inline constexpr vec<T, N> identity( size_t n ) { vec<T, N> dst = { 0 }; dst[n % N] = 1; return dst; }
-	inline constexpr vec<T, N> neutral() { return { 0 }; }
+	static inline constexpr vec<T, N> identity( A&&... args ) { return { static_cast<T>(args ? 1 : 0)... }; }
+	static inline constexpr vec<T, N> identity( size_t n ) { vec<T,N> dst = vec<T, N>::neutral(); dst[n % N] = 1; return dst; }
+	static inline constexpr vec<T, N> neutral() { vec<T, N> dst; dst.fill(0); return dst; }
 	/* shuffle operations */
 	vec<T, N> rotl(size_t n) { vec<T, N> dst; for(size_t i = 0; i < N; i++) dst[i] = (*this)[(n + i) % N]; return dst; }
 	vec<T, N> rotr(size_t n) { vec<T, N> dst; for(size_t i = 0; i < N; i++) dst[i] = (*this)[(N - n + i) % N]; return dst; }
 	vec<T, N> rot(ssize_t n) { return n < 0 ? rotl(std::abs(n)) : rotr(n); }
 };
+
+template<typename T, size_t N>
+inline constexpr vec<T, N> vector_product(vec<T, N> a, vec<T, N> b)
+{
+	return (a * b.rotl(1) - b * a.rotl(1)).rotl(1);
+}
 
 template<typename T, typename... A>
 vec(T, A... args) -> vec<T, sizeof...(args) + 1>;
