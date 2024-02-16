@@ -1,11 +1,22 @@
 #pragma once
 
+template<typename T, size_t N> 
+std::ostream& operator<<(std::ostream& stream, const vc3<T, N>& rhs)
+{
+	if(std::is_floating_point<T>::value)
+		stream << "[ " << rhs.c0 << ", " << rhs.c1 << ", " << rhs.c2 << ", " << rhs.c3 << " ]";
+	else
+		stream << "[ " << (size_t)rhs.c0 << ", " << (size_t)rhs.c1 << ", " << (size_t)rhs.c2 << ", " << (size_t)rhs.c3 << " ]";
+	return stream;
+}
+
 template<typename T, size_t N>
 struct vc3
 {
 	T c0;
 	T c1;
 	T c2;
+
 	T& operator[](size_t i)
 	{
 		switch(i % N)
@@ -15,15 +26,20 @@ struct vc3
 			case 2: return c2;
 		}
 	}
-	void print_u8()
-	{
-		printf("[%hhu %hhu %hhu]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
-	}
-	void print_f32()
-	{
-		printf("[%f %f %f]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
-	}
+
+
+	friend std::ostream& operator<< <>(std::ostream& stream, const vc3<T, N>& rhs);
 };
+
+template<typename T, size_t N> 
+std::ostream& operator<<(std::ostream& stream, const vc4<T, N>& rhs)
+{
+	if(std::is_floating_point<T>::value)
+		stream << "[ " << rhs.c0 << ", " << rhs.c1 << ", " << rhs.c2 << ", " << rhs.c3 << " ]";
+	else
+		stream << "[ " << (size_t)rhs.c0 << ", " << (size_t)rhs.c1 << ", " << (size_t)rhs.c2 << ", " << (size_t)rhs.c3 << " ]";
+	return stream;
+}
 
 template<typename T, size_t N>
 struct vc4
@@ -32,6 +48,7 @@ struct vc4
 	T c1;
 	T c2;
 	T c3;
+
 	T& operator[](size_t i)
 	{
 		switch(i % N)
@@ -42,15 +59,19 @@ struct vc4
 			case 3: return c3;
 		}
 	}
-	void print_u8()
-	{
-		printf("[%hhu %hhu %hhu %hhu]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
-	}
-	void print_f32()
-	{
-		printf("[%f %f %f %f]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
-	}
+
+	friend std::ostream& operator<< <>(std::ostream& stream, const vc4<T, N>& rhs);
 };
+
+template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits> 
+std::ostream& operator<<(std::ostream& stream, const bf3<T, c0_bits, c1_bits, c2_bits>& rhs)
+{
+	if(std::is_floating_point<T>::value)
+		stream << "[ " << rhs.c0 << ", " << rhs.c1 << ", " << rhs.c2 << " ]";
+	else
+		stream << "[ " << (size_t)rhs.c0 << ", " << (size_t)rhs.c1 << ", " << (size_t)rhs.c2 << " ]";
+	return stream;
+}
 
 template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits>
 struct bf3
@@ -68,20 +89,28 @@ struct bf3
 			case 2: return c2;
 		}
 	}
+
 	operator u8<4>()
 	{
 		return u8<4>(
-				((c0 * 255 + (1 << (c0_bits - 1)) - 1) / (1 << c0_bits) - 1),
-				((c1 * 255 + (1 << (c1_bits - 1)) - 1) / (1 << c1_bits) - 1),
-				((c2 * 255 + (1 << (c2_bits - 1)) - 1) / (1 << c2_bits) - 1),
-				0);
+		((c0 * 255 + (1 << (c0_bits - 1)) - 1) / (1 << c0_bits) - 1),
+		((c1 * 255 + (1 << (c1_bits - 1)) - 1) / (1 << c1_bits) - 1),
+		((c2 * 255 + (1 << (c2_bits - 1)) - 1) / (1 << c2_bits) - 1),
+		0);
 	}
-	void print_u8()
-	{
-		printf("[%hhu %hhu %hhu]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
-	}
+
+	friend std::ostream& operator<< <>(std::ostream& stream, const bf3<T, c0_bits, c1_bits, c2_bits>& rhs);
 };
 
+template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits, const sca::u8 c3_bits> 
+std::ostream& operator<<(std::ostream& stream, const bf4<T, c0_bits, c1_bits, c2_bits, c3_bits>& rhs)
+{
+	if(std::is_floating_point<T>::value)
+		stream << "[ " << rhs.c0 << ", " << rhs.c1 << ", " << rhs.c2 << ", " << rhs.c3 << " ]";
+	else
+		stream << "[ " << (size_t)rhs.c0 << ", " << (size_t)rhs.c1 << ", " << (size_t)rhs.c2 << ", " << (size_t)rhs.c3 << " ]";
+	return stream;
+}
 template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits, const sca::u8 c3_bits>
 struct bf4
 {
@@ -100,17 +129,17 @@ struct bf4
 			case 3: return c3;
 		}
 	}
+
 	operator u8<4>()
 	{
 		return u8<4>(
-				((c0 * 255 + (1 << (c0_bits - 1)) - 1) / (1 << c0_bits) - 1),
-				((c1 * 255 + (1 << (c1_bits - 1)) - 1) / (1 << c1_bits) - 1),
-				((c2 * 255 + (1 << (c2_bits - 1)) - 1) / (1 << c2_bits) - 1),
-				((c3 * 255 + (1 << (c3_bits - 1)) - 1) / (1 << c3_bits) - 1));
+		((c0 * 255 + (1 << (c0_bits - 1)) - 1) / (1 << c0_bits) - 1),
+		((c1 * 255 + (1 << (c1_bits - 1)) - 1) / (1 << c1_bits) - 1),
+		((c2 * 255 + (1 << (c2_bits - 1)) - 1) / (1 << c2_bits) - 1),
+		((c3 * 255 + (1 << (c3_bits - 1)) - 1) / (1 << c3_bits) - 1));
 	}
-	void print_u8()
-	{
-		printf("[%hhu %hhu %hhu %hhu]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
-	}
+
+	friend std::ostream& operator<< <>(std::ostream& stream, const bf4<T, c0_bits, c1_bits, c2_bits, c3_bits>& rhs);
+
 };
 

@@ -158,6 +158,11 @@ namespace qut
 	struct qut;
 
 	template<typename T>
+	struct qut : wide<T>
+	{
+	};
+
+	template<typename T>
 	using type = qut<T>;
 
 	using f32 = type<sca::f32>;

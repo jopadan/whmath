@@ -52,16 +52,16 @@ int main(int argc, char** argv)
 	std::cout << "color types: " << std::endl;
 	std::cout << "RGBAF32: ";
 	col::f32<4> g = { 144, 234, 241, 100 };
-	g.print_f32();
+	std::cout << g << std::endl;
 	std::cout << "RGBA8888: ";
 	col::u8<4> h = { 144, 234, 241, 100 };
-	h.print_u8();
+	std::cout << h << std::endl;
 	std::cout << "RGBA4444: ";
 	col::u16<4,4,4,4> c = { 14, 12, 15, 11 };
-	c.print_u8();
+	std::cout << c << std::endl;
 	std::cout << "RGB565: ";
 	col::u16<5,6,5> d = { 24, 34, 25 };
-	d.print_u8();
+	std::cout << d << std::endl;
 	exit(EXIT_SUCCESS);
 }
 
