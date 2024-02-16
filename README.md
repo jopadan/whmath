@@ -37,7 +37,7 @@ add_compile_options(-march=native -mfpmath=sse+387 -mveclibabi=svml -O3)
 using namespace math;
 
 /* single float scalar */
-sca::f32          f = 213.0f;
+sca::f32          s = 213.0f;
 
 /* unsigned byte vector of size 4 */
 vec::u8<4>        a = { 43, 52, 32, 53 };
