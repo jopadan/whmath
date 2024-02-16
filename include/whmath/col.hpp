@@ -1,38 +1,116 @@
 #pragma once
 
-/*
 template<typename T, size_t N>
-struct fmt
+struct vc3
 {
-	vec::u8<N> bits;
-	vec::u8<N> channels;
-	vec::u8<N> shift;
-	mat::mxn<typename t::value_type, sizeof(t) / sizeof(typename t::value_type), n> mask;
-	fmt() = default;
-	fmt(vec::u8<n> _bits, vec::u8<n> _channels) { };
-	~fmt() {}
-};
-template<size_t _size, typename _type, size_t _type_size>
-struct fmt
-{
-vec::u8<_size> bits;
-vec::u8<_size> colors;
-vec::u8<_size> shift;
-mat::mxn<_type, _type_size, _size> mask;
-fmt() = default;
-fmt(vec::u8<_size> _bits, vec::u8<_size> _colors) : bits(_bits), colors(_colors)
-{
-mask = { 0 };
-sca::u8 count;
-for(sca::u8 i; i < _size; i++, count += bits[i - 1])
-{
-shift[i] = count;
-if(_type_size > 1)
-mask[i][i] = ((std::make_unsigned_t<__int_for_sizeof_t<_type>>)UINTMAX_MAX);
-else
-mask[i][0] = (_type)(((1 << bits[i]) - 1) << count);
-}
-}
+	T c0;
+	T c1;
+	T c2;
+	T& operator[](size_t i)
+	{
+		switch(i % N)
+		{
+			case 0: return c0;
+			case 1: return c1;
+			case 2: return c2;
+		}
+	}
+	void print_u8()
+	{
+		printf("[%hhu %hhu %hhu]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
+	}
+	void print_f32()
+	{
+		printf("[%f %f %f]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
+	}
 };
 
-*/
+template<typename T, size_t N>
+struct vc4
+{
+	T c0;
+	T c1;
+	T c2;
+	T c3;
+	T& operator[](size_t i)
+	{
+		switch(i % N)
+		{
+			case 0: return c0;
+			case 1: return c1;
+			case 2: return c2;
+			case 3: return c3;
+		}
+	}
+	void print_u8()
+	{
+		printf("[%hhu %hhu %hhu %hhu]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
+	}
+	void print_f32()
+	{
+		printf("[%f %f %f %f]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
+	}
+};
+
+template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits>
+struct bf3
+{
+	T c0 : c0_bits;
+	T c1 : c1_bits;
+	T c2 : c2_bits;
+
+	T operator[](size_t i)
+	{
+		switch(i)
+		{
+			case 0: return c0;
+			case 1: return c1;
+			case 2: return c2;
+		}
+	}
+	operator u8<4>()
+	{
+		return u8<4>(
+				((c0 * 255 + (1 << (c0_bits - 1)) - 1) / (1 << c0_bits) - 1),
+				((c1 * 255 + (1 << (c1_bits - 1)) - 1) / (1 << c1_bits) - 1),
+				((c2 * 255 + (1 << (c2_bits - 1)) - 1) / (1 << c2_bits) - 1),
+				0);
+	}
+	void print_u8()
+	{
+		printf("[%hhu %hhu %hhu]: %zu\n", c0, c1, c2, sizeof(*this) * 8);
+	}
+};
+
+template<typename T, const sca::u8 c0_bits, const sca::u8 c1_bits, const sca::u8 c2_bits, const sca::u8 c3_bits>
+struct bf4
+{
+	T c0 : c0_bits;
+	T c1 : c1_bits;
+	T c2 : c2_bits;
+	T c3 : c3_bits;
+
+	T operator[](size_t i)
+	{
+		switch(i)
+		{
+			case 0: return c0;
+			case 1: return c1;
+			case 2: return c2;
+			case 3: return c3;
+		}
+	}
+	operator u8<4>()
+	{
+		return u8<4>(
+				((c0 * 255 + (1 << (c0_bits - 1)) - 1) / (1 << c0_bits) - 1),
+				((c1 * 255 + (1 << (c1_bits - 1)) - 1) / (1 << c1_bits) - 1),
+				((c2 * 255 + (1 << (c2_bits - 1)) - 1) / (1 << c2_bits) - 1),
+				((c3 * 255 + (1 << (c3_bits - 1)) - 1) / (1 << c3_bits) - 1));
+	}
+	void print_u8()
+	{
+		printf("[%hhu %hhu %hhu %hhu]: %zu\n", c0, c1, c2, c3, sizeof(*this) * 8);
+	}
+};
+
