@@ -4,6 +4,7 @@
 #elif defined(__cplusplus)
 #include <cstdint>
 #include <cstddef>
+#include <ctime>
 
 using GLchar                       = char;
 using GLuchar                      = unsigned char;
@@ -58,6 +59,6 @@ typedef GLint64       khronos_stime_nanoseconds_t;
 typedef GLuint64      khronos_utime_nanoseconds_t;
 typedef GLuint64      khronos_utime_microseconds_t;
 typedef GLint64       khronos_stime_microseconds_t;
-typedef time_t      khronos_time_t;
+typedef time_t        khronos_time_t;
 
 #endif

@@ -8,7 +8,6 @@ struct permutation : vec::type<T, N>
 		DEFAULT_SORT = 0 << 0,
 		BUBBLE_SORT  = 1 << 0,
 		PANCAKE_SORT = 1 << 1,
-		BLOCK_SORT   = 1 << 2,
 	};
 
 	constexpr permutation() = default;
@@ -17,7 +16,7 @@ struct permutation : vec::type<T, N>
 	bool parity()
 	{
 		size_t swap_count = 0;
-		sort(PANCAKE_SORT, &swap_count);
+		sort(BUBBLE_SORT, &swap_count);
 		return pow(-1, swap_count) <= 0 ? false : true;
 	}
 
@@ -41,8 +40,6 @@ struct permutation : vec::type<T, N>
 				return bubble_sort(swap_count);
 			case PANCAKE_SORT:
 				return pancake_sort(swap_count);
-			case BLOCK_SORT:
-				return block_sort(swap_count);
 			default:
 				return default_sort(swap_count);
 		};
@@ -104,12 +101,6 @@ struct permutation : vec::type<T, N>
 				}
 			}
 		}
-		return p;
-	}
-
-	permutation<T,N> block_sort(size_t* swap_count = nullptr)
-	{
-		permutation<T,N> p(*this);
 		return p;
 	}
 };
