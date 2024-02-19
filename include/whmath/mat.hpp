@@ -57,22 +57,25 @@ struct mat : wide<T, COLS, ROWS>
 		for(size_t i = 0; i < ROWS; i++)
 			(*this)[i][n % COLS] = rhs[i];
 	}
-	template<typename... Components,
-		typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<Components>, size_t> && ...)>>
-			inline constexpr mat<T, COLS, ROWS> permute_rows(Components&&... components) 
-			{
-				return { (*this)[ components % ROWS ]... };
-			}
-	template<typename... Components,
-		typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<Components>, size_t> && ...)>>
-			inline constexpr mat<T, COLS, ROWS> permute_cols(Components&&... components)
-			{
-				mat<T, COLS, ROWS> dst;
 
-				for(size_t i = 0; i < ROWS; i++)
-					dst[i] = { (*this)[i][components % COLS]... };
-				return dst;
-			}
+	template<typename... Components,
+	         typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<Components>, size_t> && ...)>>
+	inline constexpr mat<T, COLS, ROWS> permute_rows(Components&&... components) 
+	{
+		return { (*this)[components % ROWS]... };
+	}
+
+	template<typename... Components,
+	         typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<Components>, size_t> && ...)>>
+	inline constexpr mat<T, COLS, ROWS> permute_cols(Components&&... components)
+	{
+		mat<T, COLS, ROWS> dst;
+
+		for(size_t i = 0; i < ROWS; i++)
+			dst[i] = { (*this)[i][components % COLS]... };
+		return dst;
+	}
+
 	inline constexpr T row_sum(size_t n) { return row(n).sum(); }
 	inline constexpr T col_sum(size_t n) { return col(n).sum(); }
 
@@ -84,45 +87,34 @@ struct mat : wide<T, COLS, ROWS>
 				dst[j][i] = (*this)[i][j];
 		return dst; 
 	}
-	template<typename... A,
-		typename = std::enable_if_t<sizeof...(A) <= ROWS>,
-		typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, ssize_t> && ...)>>
-			inline constexpr mat<T, COLS, ROWS> rot_rows(A&&... args)
-			{
-				mat<T, COLS, ROWS> dst{ 0 };
-				vec::vec<ssize_t, sizeof...(A)> rot{ static_cast<ssize_t>(args)... };
-				for(size_t i = 0; i < sizeof...(A); i++)
-					dst.set_row(i, row(i).rot(rot[i]));
-				return dst;
-			}
 
 	template<typename... A,
-		typename = std::enable_if_t<sizeof...(A) <= COLS>,
-		typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, ssize_t> && ...)>>
-			inline constexpr mat<T, COLS, ROWS> rot_cols(A&&... args)
-			{
-				mat<T, COLS, ROWS> dst{ 0 };
-				vec::vec<ssize_t, sizeof...(A)> rot{ static_cast<ssize_t>(args)... };
-				for(size_t i = 0; i < sizeof...(A); i++)
-					dst.set_col(i, col(i).rot(rot[i]));
-				return dst;
-			}
-	/*
-	   sca::f32 det()
-	   {
-	   for(size_t i = 0; i < N; i++)
-	   {
-	   vec::f32<M> a = { 1.0f };
-	   vec::f32<M> b = { 1.0f };
-	   for(size_t i = 0; i < N; i++)
-	   {
-	   for(int k = 0; k < N; k++)
-	   {
-	   a[k] *= (*this)[(0+i) % N][(k+i) % N];
-	   b[k] *= (*this)[(0+i) % N][((N-k)-i) % N];
-	   }
-	   }
-	   return a[0] + a[1] + a[2] - b[0] - b[1] - b[2];
-	   }
-	   */
+	typename = std::enable_if_t<sizeof...(A) <= ROWS>,
+	typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, ssize_t> && ...)>>
+	inline constexpr mat<T, COLS, ROWS> rot_rows(A&&... args)
+	{
+		mat<T, COLS, ROWS> dst{ 0 };
+		vec::vec<ssize_t, sizeof...(A)> rot{ static_cast<ssize_t>(args)... };
+		for(size_t i = 0; i < sizeof...(A); i++)
+			dst.set_row(i, row(i).rot(rot[i]));
+		return dst;
+	}
+
+	template<typename... A,
+	typename = std::enable_if_t<sizeof...(A) <= COLS>,
+	typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<A>, ssize_t> && ...)>>
+	inline constexpr mat<T, COLS, ROWS> rot_cols(A&&... args)
+	{
+		mat<T, COLS, ROWS> dst{ 0 };
+		vec::vec<ssize_t, sizeof...(A)> rot{ static_cast<ssize_t>(args)... };
+		for(size_t i = 0; i < sizeof...(A); i++)
+			dst.set_col(i, col(i).rot(rot[i]));
+		return dst;
+	}
+	
+	inline constexpr T det3()
+	{
+		mat<T, 3, 3> a = rot_rows(0,-1,1);
+		return ((a[0] * a[1] * a[2]).sum() + ( -(*this)[0][2]*(*this)[1][1]*(*this)[2][0]-(*this)[0][1]*(*this)[1][0]*(*this)[2][2]-(*this)[0][0]*(*this)[1][2]*(*this)[2][1]));
+	}
 };

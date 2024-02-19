@@ -39,6 +39,7 @@ namespace sca
 	using stime  = khronos_stime_nanoseconds_t;
 	using utime  = khronos_utime_nanoseconds_t;
 	using idx    = GLuint;
+	using enm    = GLenum;
 };
 
 namespace vec
@@ -330,5 +331,43 @@ namespace col
 
 	#include <whmath/col.hpp>
 };
+
+template<typename T, size_t N,
+typename = std::enable_if<N == 2, bool>::type>
+vec::type<T, N> cross(vec::type<T, N> src, sca::enm mode = GL_CCW)
+{
+	return { mode == GL_CW ? vec::type<T,N>{ src[1], -src[0] } : vec::type<T, N>{ -src[1], src[0] } };
+}
+
+template<typename T, size_t N,
+typename = std::enable_if<N == 3, bool>::type>
+vec::type<T, N> cross(vec::type<T,N> a, vec::type<T,N> b) { return (a * b.rotl(1) - b * a.rotl(1)).rotl(1); }
+
+template<typename T, size_t N,
+typename = std::enable_if<N == 4, bool>::type>
+vec::type<T, N> cross(vec::type<T,N> a, vec::type<T,N> b, vec::type<T, N> c)
+{
+	return { -mat::type<T,3,3>( a.yzw(), b.yzw(), c.yzw() ).det3(), mat::type<T,3, 3>( a.xzw(), b.xzw(), c.xzw() ).det3(), -mat::type<T,3, 3>( a.xyw(), b.xyw(), c.xyw() ).det3(), mat::type<T,3, 3>( a.xyz(), b.xyz(), c.xyz() ).det3() };
+}
+
+/*
+template<typename T, size_t N,
+typename =
+vec::type<T, N> hodge(vec::type<T,N> a, vec::type<T,N> b)
+{
+}
+
+template<typename T, size_t N,
+typename = 
+vec::type<T, N> wedge(vec::type<T,N> a, vec::type<T,N> b)
+{
+	
+}
+
+template<typename T, size_t N,
+vec::type<T, N> paffian(vec::type<T,N> a, vec::type<T,N> b)
+{
+}
+*/
 
 };

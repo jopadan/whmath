@@ -212,20 +212,16 @@ struct vec : wide<T, N>
 	vec<T, N> rotl(size_t n) { vec<T, N> dst; for(size_t i = 0; i < N; i++) dst[i] = (*this)[(n + i) % N]; return dst; }
 	vec<T, N> rotr(size_t n) { vec<T, N> dst; for(size_t i = 0; i < N; i++) dst[i] = (*this)[(N - n + i) % N]; return dst; }
 	vec<T, N> rot(ssize_t n) { return n < 0 ? rotl(std::abs(n)) : rotr(n); }
+	template<typename... Components,
+	         typename = std::enable_if_t<(std::is_convertible_v<std::decay_t<Components>, size_t> && ...)>>
+	inline constexpr vec<T, std::min(sizeof...(Components), N)> permute(Components&&... components) { return { (*this)[components % N]... }; }
+	inline constexpr vec<T, 3> xyz() { return permute(0,1,2); }
+	inline constexpr vec<T, 3> yzw() { return permute(1,2,3); }
+	inline constexpr vec<T, 3> xzw() { return permute(0,2,3); }
+	inline constexpr vec<T, 3> xyw() { return permute(0,1,3); }
 };
 
-template<typename T, size_t N>
-inline constexpr vec<T, N> vector_product(vec<T, N> a, vec<T, N> b)
-{
-	switch(N)
-	{
-		case 1: return vec<T, N>::neutral();
-		case 2: return vec<T, N>::neutral();
-		case 3: return (a * b.rotl(1) - b * a.rotl(1)).rotl(1);
-		case 4: return vec<T, N>::neutral();
-		default: return vec<T, N>::neutral();
-	}
-}
+
 
 template<typename T, typename... A>
 vec(T, A... args) -> vec<T, sizeof...(args) + 1>;

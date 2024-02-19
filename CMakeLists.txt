@@ -11,7 +11,7 @@ endif()
 
 set( CMAKE_CXX_STANDARD 23 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
-add_compile_options(-march=native -O3)
+add_compile_options(-std=gnu++26 -march=native -O3)
 add_compile_options(-DGLCOREARB=1)
 add_compile_options(-D_FILE_OFFSET_BITS=64)
 add_compile_options(-fdata-sections)
