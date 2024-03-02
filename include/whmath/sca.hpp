@@ -30,6 +30,9 @@ using khronos_utime_nanoseconds_t  = GLuint64;
 using khronos_utime_microseconds_t = GLuint64;
 using khronos_stime_microseconds_t = GLint64;
 using khronos_time_t               = time_t;
+using GLenum                       = unsigned int;
+#define GL_CW					0x0900
+#define GL_CCW					0x0901
 
 #else
 #include <stdint.h>
@@ -60,5 +63,8 @@ typedef GLuint64      khronos_utime_nanoseconds_t;
 typedef GLuint64      khronos_utime_microseconds_t;
 typedef GLint64       khronos_stime_microseconds_t;
 typedef time_t        khronos_time_t;
+typedef unsigned int  GLenum;
+#define GL_CW					0x0900
+#define GL_CCW					0x0901
 
 #endif

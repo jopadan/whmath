@@ -24,17 +24,17 @@ namespace sca
 	using f32    = GLfloat;
 	using f64    = GLdouble;
 	using c8     = GLchar;
-	using i8     = GLbyte;
+	using s8     = GLbyte;
 	using u8     = GLubyte;
-	using i16    = GLshort;
+	using s16    = GLshort;
 	using u16    = GLushort;
-	using i32    = GLint;
+	using s32    = GLint;
 	using u32    = GLuint;
-	using i64    = GLint64;
+	using s64    = GLint64;
 	using u64    = GLuint64;
 	using ssz    = khronos_ssize_t;
 	using usz    = khronos_usize_t;
-	using iptr   = khronos_intptr_t;
+	using sptr   = khronos_intptr_t;
 	using uptr   = khronos_uintptr_t;
 	using stime  = khronos_stime_nanoseconds_t;
 	using utime  = khronos_utime_nanoseconds_t;
@@ -59,13 +59,13 @@ namespace vec
 	using f64 = type<sca::f64, N>;
 
 	template<size_t N>
-	using  i8 = type<sca:: i8, N>;
+	using  s8 = type<sca:: s8, N>;
 	template<size_t N>
-	using i16 = type<sca::i16, N>;
+	using s16 = type<sca::s16, N>;
 	template<size_t N>
-	using i32 = type<sca::i32, N>;
+	using s32 = type<sca::s32, N>;
 	template<size_t N>
-	using i64 = type<sca::i64, N>;
+	using s64 = type<sca::s64, N>;
 
 	template<size_t N>
 	using  u8 = type<sca:: u8, N>;
@@ -93,13 +93,13 @@ namespace com
 	using f64 = type<sca::f64, N>;
 
 	template<size_t N>
-	using  i8 = type<sca:: i8, N>;
+	using  s8 = type<sca:: s8, N>;
 	template<size_t N>
-	using i16 = type<sca::i16, N>;
+	using s16 = type<sca::s16, N>;
 	template<size_t N>
-	using i32 = type<sca::i32, N>;
+	using s32 = type<sca::s32, N>;
 	template<size_t N>
-	using i64 = type<sca::i64, N>;
+	using s64 = type<sca::s64, N>;
 
 	template<size_t N>
 	using  u8 = type<sca:: u8, N>;
@@ -130,13 +130,13 @@ namespace mat
 	using f64 = type<sca::f64, N, ROWS>;
 
 	template<size_t N, size_t ROWS>
-	using  i8 = type<sca:: i8, N, ROWS>;
+	using  s8 = type<sca:: s8, N, ROWS>;
 	template<size_t N, size_t ROWS>
-	using i16 = type<sca::i16, N, ROWS>;
+	using s16 = type<sca::s16, N, ROWS>;
 	template<size_t N, size_t ROWS>
-	using i32 = type<sca::i32, N, ROWS>;
+	using s32 = type<sca::s32, N, ROWS>;
 	template<size_t N, size_t ROWS>
-	using i64 = type<sca::i64, N, ROWS>;
+	using s64 = type<sca::s64, N, ROWS>;
 
 	template<size_t N, size_t ROWS>
 	using  u8 = type<sca:: u8, N, ROWS>;
@@ -169,10 +169,10 @@ namespace qut
 	using f32 = type<sca::f32>;
 	using f64 = type<sca::f64>;
 
-	using  i8 = type<sca:: i8>;
-	using i16 = type<sca::i16>;
-	using i32 = type<sca::i32>;
-	using i64 = type<sca::i64>;
+	using  s8 = type<sca:: s8>;
+	using s16 = type<sca::s16>;
+	using s32 = type<sca::s32>;
+	using s64 = type<sca::s64>;
 
 	using  u8 = type<sca:: u8>;
 	using u16 = type<sca::u16>;
@@ -196,10 +196,10 @@ namespace uqv
 	using f32 = type<sca::f32>;
 	using f64 = type<sca::f64>;
 
-	using  i8 = type<sca:: i8>;
-	using i16 = type<sca::i16>;
-	using i32 = type<sca::i32>;
-	using i64 = type<sca::i64>;
+	using  s8 = type<sca:: s8>;
+	using s16 = type<sca::s16>;
+	using s32 = type<sca::s32>;
+	using s64 = type<sca::s64>;
 
 	using  u8 = type<sca:: u8>;
 	using u16 = type<sca::u16>;
@@ -223,10 +223,10 @@ namespace oct
 	using f32 = type<sca::f32>;
 	using f64 = type<sca::f64>;
 
-	using  i8 = type<sca:: i8>;
-	using i16 = type<sca::i16>;
-	using i32 = type<sca::i32>;
-	using i64 = type<sca::i64>;
+	using  s8 = type<sca:: s8>;
+	using s16 = type<sca::s16>;
+	using s32 = type<sca::s32>;
+	using s64 = type<sca::s64>;
 
 	using  u8 = type<sca:: u8>;
 	using u16 = type<sca::u16>;
@@ -253,13 +253,13 @@ namespace ten
 	using f64 = ten<sca::f64, N, ROWS>;
 
 	template<size_t N, size_t ROWS>
-	using  i8 = ten<sca:: i8, N, ROWS>;
+	using  s8 = ten<sca:: s8, N, ROWS>;
 	template<size_t N, size_t ROWS>
-	using i16 = ten<sca::i16, N, ROWS>;
+	using s16 = ten<sca::s16, N, ROWS>;
 	template<size_t N, size_t ROWS>
-	using i32 = ten<sca::i32, N, ROWS>;
+	using s32 = ten<sca::s32, N, ROWS>;
 	template<size_t N, size_t ROWS>
-	using i64 = ten<sca::i64, N, ROWS>;
+	using s64 = ten<sca::s64, N, ROWS>;
 
 	template<size_t N, size_t ROWS>
 	using  u8 = ten<sca:: u8, N, ROWS>;
@@ -287,10 +287,10 @@ namespace sed
 	using f32 = sed<sca::f32>;
 	using f64 = sed<sca::f64>;
 
-	using  i8 = sed<sca:: i8>;
-	using i16 = sed<sca::i16>;
-	using i32 = sed<sca::i32>;
-	using i64 = sed<sca::i64>;
+	using  s8 = sed<sca:: s8>;
+	using s16 = sed<sca::s16>;
+	using s32 = sed<sca::s32>;
+	using s64 = sed<sca::s64>;
 
 	using  u8 = sed<sca:: u8>;
 	using u16 = sed<sca::u16>;
