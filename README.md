@@ -1,6 +1,10 @@
 # whmath
 
-C++ SIMD header-only math library targeting game/engine development mixing features of [wolftype/versor][versor], [4J-company/mr-math][mr-math] and [EricLengyel/Terathon-Math-Library][Terathon-Math-Library]
+C++ SIMD header-only math library targeting game/engine development mixing features of:
+
+- [wolftype/versor][versor]
+- [4J-company/mr-math][mr-math]
+- [EricLengyel/Terathon-Math-Library][Terathon-Math-Library]
 
 ## Description
 
@@ -74,7 +78,7 @@ m4[3] = prd::cross<sca::f32, 4>(m4[0], m4[1], m4[2]);
 - [Terathon-Math-Library]
 - [Terathon Software LLC]
 - [Permutation]
-- [Parity Theorem or Permutations]
+- [Parity Theorem for Permutations]
 - [Levi-Civita symbol]
 - [Hodge star operator]
 
