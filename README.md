@@ -70,9 +70,9 @@ m4[3] = prd::cross<sca::f32, 4>(m4[0], m4[1], m4[2]);
 
 # Links
 
-- [mr-math]: https://github.com/4J-company/mr-math/)
-- [versor]: https://github.com/wolftype/versor/)
-- [Permutation](https://en.wikipedia.org/wiki/Permutation)
-- [Parity Theorem for Permutations](https://maa.org/book/export/html/115646)
-- [Levi-Civita symbol](https://en.wikipedia.org/wiki/Levi-Civita_symbol)
-- [Hodge star operator](https://en.wikipedia.org/wiki/Hodge_star_operator)
+[mr-math]: https://github.com/4J-company/mr-math/)
+[versor]: https://github.com/wolftype/versor/)
+[Permutation]: https://en.wikipedia.org/wiki/Permutation
+[Parity Theorem for Permutations]: https://maa.org/book/export/html/115646
+[Levi-Civita symbol]: https://en.wikipedia.org/wiki/Levi-Civita_symbol
+[Hodge star operator]: https://en.wikipedia.org/wiki/Hodge_star_operator
