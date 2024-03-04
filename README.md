@@ -61,7 +61,7 @@ col::f32<4>       f = { 24.0f, 12.0f, 12.0f, 8.0f };
 mat::f32<3, 3> m3 = mat::f32<3,3>::identity();
 m3[2] = prd::cross<sca::f32, 3>(m3[0], m3[1]);
 
-/* 4d vector produt
+/* 4d vector product */
 mat::f32<4, 4> m4 = mat::f32<4,4>::identity();
 m4[3] = prd::cross<sca::f32, 4>(m4[0], m4[1], m4[2]);
 
