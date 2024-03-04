@@ -1,6 +1,6 @@
 # whmath
 
-C++ SIMD header-only math library targeting game/engine development mixing features of [versor] and [mr-math]
+C++ SIMD header-only math library targeting game/engine development mixing features of [wolftype/versor][versor] and [4J-company/mr-math][mr-math]
 
 ## Description
 
@@ -70,8 +70,8 @@ m4[3] = prd::cross<sca::f32, 4>(m4[0], m4[1], m4[2]);
 
 # Links
 
-- [@4J-company's mr-math](https://github.com/4J-company/mr-math/)
-- [@wolftype's versor](https://github.com/wolftype/versor/)
+- [mr-math](https://github.com/4J-company/mr-math/)
+- [versor](https://github.com/wolftype/versor/)
 - [Permutation](https://en.wikipedia.org/wiki/Permutation)
 - [Parity Theorem for Permutations](https://maa.org/book/export/html/115646)
 - [Levi-Civita symbol](https://en.wikipedia.org/wiki/Levi-Civita_symbol)
