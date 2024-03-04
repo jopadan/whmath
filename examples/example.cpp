@@ -53,17 +53,17 @@ int main(int argc, char** argv)
 	std::cout << "vector_product: " << std::endl;
 
 	mat::f32<2, 2> m2 = mat::f32<2,2>::identity();
-	m2[1] = cross<sca::f32, 2>(m2[0], GL_CCW);
+	m2[1] = prd::cross<sca::f32, 2>(m2[0], GL_CCW);
 	std::cout << "GL_CCW: " << m2[1] << std::endl;
-	m2[1] = cross<sca::f32, 2>(m2[0], GL_CW);
+	m2[1] = prd::cross<sca::f32, 2>(m2[0], GL_CW);
 	std::cout << "GL_CW : "  << m2[1] << std::endl;
 
 	mat::f32<3, 3> m3 = mat::f32<3,3>::identity();
-	m3[2] = cross<sca::f32, 3>(m3[0], m3[1]);
+	m3[2] = prd::cross<sca::f32, 3>(m3[0], m3[1]);
 	std::cout << m3[0] << " x " << m3[1] << " = " << m3[2] << std::endl;
 
 	mat::f32<4, 4> m4 = mat::f32<4,4>::identity();
-	m4[3] = cross<sca::f32, 4>(m4[0], m4[1], m4[2]);
+	m4[3] = prd::cross<sca::f32, 4>(m4[0], m4[1], m4[2]);
 	std::cout << m4[0] << " x " << m4[1] << " x " << m4[2] << " = " << m4[3] << std::endl;
 
 	/* output bitfield/vector color types and size */

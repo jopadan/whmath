@@ -15,7 +15,7 @@ std::ostream& operator<<(std::ostream& stream, const vec<T, N>& rhs)
 }
 
 template<typename T, size_t N>
-struct vec : wide<T, N>
+struct [[nodiscard]] vec : wide<T, N>
 {
 	enum { x, y, z, w };
 	enum { r, g, b, a };
